@@ -1,3 +1,6 @@
+import 'bootstrap/dist/css/bootstrap.css';
+// Put any other imports below so that CSS from your
+// components takes precedence over default styles.
 import { useState } from "react";
 
 function ToDoList() {
@@ -38,13 +41,13 @@ function ToDoList() {
 
   return (
     <>
-      <div className="todolist-container">
+      <div className="todolist-container container">
         <h1>To Do List: </h1>
         <div className="add-tasks">
           <input type="text" id="input" placeholder="Enter your task... " />
           <button onClick={addTask}>Add</button>
         </div>
-        <div className="tasks-container">
+        <div className="tasks-container container">
           {tasks.map((t, index) => (
             <li key={index}>
               {" "}
