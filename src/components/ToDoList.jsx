@@ -18,22 +18,20 @@ function ToDoList() {
     setTasks(tasks.filter((_, i) => i !== index));
   }
   function moveTaskUp(index) {
-    const movedTasks = tasks;
+    const movedTasks = [...tasks];
     if (index > 0) {
-      [movedTasks[index], movedTasks[index - 1]] = [
-        movedTasks[index - 1],
-        movedTasks[index],
-      ];
+      const task = movedTasks[index];
+      movedTasks[index] = movedTasks[index - 1];
+      movedTasks[index - 1] = task;
     }
     setTasks(movedTasks);
   }
   function moveTaskDown(index) {
-    const movedTasks = tasks;
+    const movedTasks = [...tasks];
     if (index < tasks.length - 1) {
-      [movedTasks[index], movedTasks[index + 1]] = [
-        movedTasks[index + 1],
-        movedTasks[index],
-      ];
+      const task = movedTasks[index];
+      movedTasks[index] = movedTasks[index + 1];
+      movedTasks[index + 1] = task;
     }
     setTasks(movedTasks);
   }
