@@ -15,17 +15,30 @@ function ToDoList() {
   }, []);
 
   function handleAddTask() {
-    const taskText = inputValue;
+    const taskText = inputValue.trim();
 
     if (taskText) {
-      const newTask = taskText;
-      fetch("http://localhost:8000/tasks")({
+      const newTask = {
+        id: tasks[tasks.length - 1].id + 1,
+        task: taskText,
+      };
+
+      fetch("http://localhost:8000/tasks", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify(newTask),
-      }).then((res) => res.json());
+      })
+        .then((res) => res.json())
+
+        .then((data) => {
+          setTasks([...tasks, data]);
+          setInputValue("");
+        })
+        .catch((err) => {
+          console.error("Error Adding task: ", err);
+        });
     }
   }
 
