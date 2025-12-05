@@ -1,61 +1,69 @@
-import 'bootstrap/dist/css/bootstrap.css';
-// Put any other imports below so that CSS from your
-// components takes precedence over default styles.
-import { useState } from "react";
+import "bootstrap/dist/css/bootstrap.css";
+
+import { useEffect, useState } from "react";
 
 function ToDoList() {
-  const [tasks, setTasks] = useState([
-    "👩🏽‍💻Coding",
-    "🎮 Playing games",
-    " 🍜Eating",
-  ]);
+  const [tasks, setTasks] = useState(null);
+  const [inputValue, setInputValue] = useState("");
 
-  function addTask() {
-    const task = document.getElementById("input").value;
-    if (task) {
-      setTasks([...tasks, task]);
+  useEffect(() => {
+    fetch("http://localhost:8000/tasks")
+      .then((res) => res.json())
+      .then((data) => {
+        setTasks(data);
+      });
+  }, []);
+
+  function handleAddTask() {
+    const taskText = inputValue;
+
+    if (taskText) {
+      const newTask = taskText;
+      fetch("http://localhost:8000/tasks")({
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(newTask),
+      }).then((res) => res.json());
     }
-    document.getElementById("input").value = "";
   }
-  function deleteTask(index) {
-    setTasks(tasks.filter((_, i) => i !== index));
-  }
-  function moveTaskUp(index) {
-    const movedTasks = [...tasks];
-    if (index > 0) {
-      const task = movedTasks[index];
-      movedTasks[index] = movedTasks[index - 1];
-      movedTasks[index - 1] = task;
-    }
-    setTasks(movedTasks);
-  }
-  function moveTaskDown(index) {
-    const movedTasks = [...tasks];
-    if (index < tasks.length - 1) {
-      const task = movedTasks[index];
-      movedTasks[index] = movedTasks[index + 1];
-      movedTasks[index + 1] = task;
-    }
-    setTasks(movedTasks);
-  }
+
+  function handleDeleteTask(id) {}
+  function handleMoveTaskUp(id) {}
+  function handleMoveTaskDown(id) {}
 
   return (
     <>
       <div className="todolist-container container">
         <h1>To Do List: </h1>
         <div className="add-tasks">
-          <input type="text" id="input" placeholder="Enter your task... " />
-          <button onClick={addTask}>Add</button>
+          <input
+            type="text"
+            id="input"
+            value={inputValue}
+            placeholder="Enter your task... "
+            onChange={(e) => setInputValue(e.target.value)}
+          />
+          <button onClick={handleAddTask}>Add</button>
         </div>
         <div className="tasks-container container">
-          {tasks.map((t, index) => (
-            <li key={index}>
-              {" "}
-              <button onClick={() => moveTaskUp(index)}>Up</button>{" "}
-              <button onClick={() => moveTaskDown(index)}>Down</button> {t}{" "}
-              <button onClick={() => deleteTask(index)}>delete</button>
-            </li>
-          ))}
+          {tasks &&
+            tasks.map((task) => (
+              <li key={task.id}>
+                {" "}
+                <button onClick={() => handleMoveTaskUp(task.id)}>
+                  Up
+                </button>{" "}
+                <button onClick={() => handleMoveTaskDown(task.id)}>
+                  Down
+                </button>{" "}
+                {task.task}{" "}
+                <button onClick={() => handleDeleteTask(task.id)}>
+                  delete
+                </button>
+              </li>
+            ))}
         </div>
       </div>
     </>
