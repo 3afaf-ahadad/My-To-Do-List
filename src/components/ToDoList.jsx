@@ -3,11 +3,11 @@ import "bootstrap/dist/css/bootstrap.css";
 import { useEffect, useState } from "react";
 
 function ToDoList() {
-  const [tasks, setTasks] = useState(null);
+  const [tasks, setTasks] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3000/tasks")
+    fetch("http://localhost:8000/tasks")
       .then((res) => {
         if (!res.ok) {
           throw Error("💀 Error Fetching Data!!");
@@ -16,22 +16,25 @@ function ToDoList() {
       })
       .then((data) => {
         setTasks(data);
-        console.log("done👍🏽✅");
       })
-      .catch((err) => console.error(err));
-  }, ["http://localhost:3000/tasks"]);
+      .catch((err) => console.error("fetch error: ", err));
+  }, []);
 
   function handleAddTask() {
     const taskText = inputValue;
-
     if (taskText) {
-      const customId = String(Number(tasks[tasks.length - 1].id) + 1);
+      let customId;
+      if (tasks.length > 0) {
+        customId = String(Number(tasks[tasks.length - 1].id) + 1);
+      } else {
+        customId = "1";
+      }
       const newTask = {
-        id: customId.toString(),
+        id: customId,
         task: taskText,
       };
 
-      fetch("http://localhost:3000/tasks", {
+      fetch("http://localhost:8000/tasks", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -45,13 +48,9 @@ function ToDoList() {
           return res.json();
         })
 
-        .then((data) => {
-          console.log("Server response after adding:", data);
-          console.log("Current tasks before update:", tasks);
-
+        .then(() => {
           setTasks((prev) => [...prev, newTask]);
 
-          console.log("Tasks should now be:", [...tasks, data]);
           setInputValue("");
         })
         .catch((err) => {
@@ -61,8 +60,7 @@ function ToDoList() {
   }
 
   function handleDeleteTask(id) {
-    console.log("Trying to delete task id:", id);
-    fetch(`http://localhost:3000/tasks/${id}`, {
+    fetch(`http://localhost:8000/tasks/${id}`, {
       method: "DELETE",
     })
       .then((res) => {
@@ -77,45 +75,81 @@ function ToDoList() {
       .catch((err) => console.log(err));
   }
 
-  function handleMoveTaskUp(id) {}
-  function handleMoveTaskDown(id) {}
+  function handleMoveTaskUp(id) {
+    const movedTasks = [...tasks];
+
+    const currentIndex = tasks.findIndex((tasks) => tasks.id === id);
+    if (currentIndex > 0) {
+      [movedTasks[currentIndex], movedTasks[currentIndex - 1]] = [
+        movedTasks[currentIndex - 1],
+        movedTasks[currentIndex],
+      ];
+
+      setTasks(movedTasks);
+    }
+  }
+  function handleMoveTaskDown(id) {
+    const movedTasks = [...tasks];
+
+    const currentIndex = tasks.findIndex((tasks) => tasks.id === id);
+    if (currentIndex < tasks.length - 1) {
+      [movedTasks[currentIndex], movedTasks[currentIndex + 1]] = [
+        movedTasks[currentIndex + 1],
+        movedTasks[currentIndex],
+      ];
+
+      setTasks(movedTasks);
+    }
+  }
 
   return (
-    <>
-      <div className="todolist-container container">
-        <h1>To Do List: </h1>
-        <div className="add-tasks">
+    <div className='d-flex justify-content-center align-items-center min-vh-100'>
+      <div className="tasks-box bg-black container">
+        <h1 className="p-3">To Do List: </h1>
+        <div className="add-tasks container d-flex justify-content-center align-items-center w-75">
           <input
+            className="form-control"
             type="text"
             id="input"
             value={inputValue}
             placeholder="Enter your task... "
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <button onClick={handleAddTask}>Add</button>
+          <button className="btn btn-primary rounded-start rounded-top-5 rounded-bottom-5" onClick={handleAddTask}>
+            Add
+          </button>
         </div>
-        <div className="tasks-container container">
+        <ul className="tasks-container list-unstyled">
           {tasks &&
             tasks
               .filter((task) => task && task.task)
               .map((task) => (
-                <li key={task.id}>
+                <li key={task.id} className="container m-3 col">
                   {" "}
-                  <button onClick={() => handleMoveTaskUp(task.id)}>
+                  <button
+                    className="btn btn-secondary rounded-5"
+                    onClick={() => handleMoveTaskUp(task.id)}
+                  >
                     Up
                   </button>{" "}
-                  <button onClick={() => handleMoveTaskDown(task.id)}>
+                  <button
+                    className="btn btn-secondary rounded-5"
+                    onClick={() => handleMoveTaskDown(task.id)}
+                  >
                     Down
                   </button>{" "}
-                  {task.task}{" "}
-                  <button onClick={() => handleDeleteTask(task.id)}>
+                  <span className="container">{task.task} </span>
+                  <button
+                    className="btn btn-danger rounded-5"
+                    onClick={() => handleDeleteTask(task.id)}
+                  >
                     delete
                   </button>
                 </li>
               ))}
-        </div>
+        </ul>
       </div>
-    </>
+    </div>
   );
 }
 export default ToDoList;
