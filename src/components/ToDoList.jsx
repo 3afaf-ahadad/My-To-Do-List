@@ -104,18 +104,18 @@ function ToDoList() {
 
   return (
     <div className='d-flex justify-content-center align-items-center min-vh-100'>
-      <div className="tasks-box bg-black container">
+      <div className="tasks-box container">
         <h1 className="p-3">To Do List: </h1>
         <div className="add-tasks container d-flex justify-content-center align-items-center w-75">
           <input
-            className="form-control"
+            className="form-control border-1 rounded-start-pill"
             type="text"
             id="input"
             value={inputValue}
             placeholder="Enter your task... "
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <button className="btn btn-primary rounded-start rounded-top-5 rounded-bottom-5" onClick={handleAddTask}>
+          <button className="btn btn-outline-secondary rounded-end-pill" onClick={handleAddTask}>
             Add
           </button>
         </div>
@@ -127,20 +127,20 @@ function ToDoList() {
                 <li key={task.id} className="container m-3 col">
                   {" "}
                   <button
-                    className="btn btn-secondary rounded-5"
+                    className="btn btn-secondary rounded-pill"
                     onClick={() => handleMoveTaskUp(task.id)}
                   >
                     Up
                   </button>{" "}
                   <button
-                    className="btn btn-secondary rounded-5"
+                    className="btn btn-secondary rounded-pill"
                     onClick={() => handleMoveTaskDown(task.id)}
                   >
                     Down
                   </button>{" "}
                   <span className="container">{task.task} </span>
                   <button
-                    className="btn btn-danger rounded-5"
+                    className="btn btn-danger rounded-pill"
                     onClick={() => handleDeleteTask(task.id)}
                   >
                     delete
