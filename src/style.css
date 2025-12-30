@@ -1,5 +1,6 @@
 * {
   font-family: "Outfit", sans-serif;
+  transition: 0.7s ease-in-out;
 }
 
 body {
@@ -21,8 +22,9 @@ body {
 }
 
 .task-add input:focus {
-  box-shadow: 0 0 16px hsl(231, 44%, 84%);
-  border: 1px solid #9fa8da;
+  transition: 0.7s ease-in-out;
+  box-shadow: 0 0 16px hsl(231, 44%, 80%);
+  border: 2px solid #9fa8da;
 }
 .task-add button {
   background-color: #9fa8da;
@@ -33,9 +35,18 @@ body {
   box-shadow: 0 0 17px #c4cae8;
   border: 1px solid #9fa8da;
 }
+.task-add button:active {
+  background-color: #9fa8da;
+  border: 1px solid #9fa8da;
+}
 
 .list-unstyled img {
   cursor: pointer;
+}
+
+.done {
+  color: #a7aae1;
+  text-decoration: line-through;
 }
 
 i {

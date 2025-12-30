@@ -136,7 +136,7 @@ function ToDoList() {
         </div>
         <div className="container task-add d-flex">
           <input
-            className="form-control border-1 p-2 px-4 rounded-start-pill w-75"
+            className="form-control border-1 px-4 rounded-start-pill w-75"
             type="text"
             id="input"
             value={inputValue}
@@ -144,7 +144,7 @@ function ToDoList() {
             onChange={(e) => setInputValue(e.target.value)}
           />
           <button
-            className="btn btn-primary p-2 px-4 rounded-end-pill"
+            className="btn p-2 px-4 rounded-end-pill"
             onClick={handleAddTask}
           >
             Add
