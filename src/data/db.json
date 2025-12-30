@@ -1,16 +1,14 @@
 {
   "tasks": [
     {
-      "id": "4",
-      "task": "task 3"
-    },
-    {
-      "id": "6",
-      "task": "task 2"
+      "id": "3",
+      "task": "task 1",
+      "done": true
     },
     {
       "id": "5",
-      "task": "task 1"
+      "task": "coding a to do list using React JS",
+      "done": true
     }
   ]
 }

@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.css";
-
+import "bootstrap-icons/font/bootstrap-icons.css";
 import { useEffect, useState } from "react";
+import "../style.css";
 
 function ToDoList() {
   const [tasks, setTasks] = useState([]);
@@ -32,6 +33,7 @@ function ToDoList() {
       const newTask = {
         id: customId,
         task: taskText,
+        done: false,
       };
 
       fetch("http://localhost:8000/tasks", {
@@ -102,49 +104,81 @@ function ToDoList() {
     }
   }
 
+  const toggleDoneUndone = (id) => {
+    const current = tasks.find((t) => t.id === id);
+    if (!current) return;
+
+    const updated = { ...current, done: !current.done };
+
+    setTasks((prev) => prev.map((t) => (t.id === id ? updated : t)));
+
+    fetch(`http://localhost:8000/tasks/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ done: updated.done }),
+    })
+      .then((res) => {
+        if (!res.ok) throw Error(`💀 HTTP Error! status: ${res.status}`);
+        return res.json();
+      })
+      .catch((err) => {
+        console.error("Error updating task done: ", err);
+        setTasks((prev) => prev.map((t) => (t.id === id ? current : t)));
+      });
+  };
+
   return (
-    <div className='d-flex justify-content-center align-items-center min-vh-100'>
-      <div className="tasks-box container">
-        <h1 className="p-3">To Do List: </h1>
-        <div className="add-tasks container d-flex justify-content-center align-items-center w-75">
+    <div>
+      <div className="container tasks-box rounded-5 py-3 my-5 mx-auto">
+        <div className="title p-4 rounded-top-5">
+          {" "}
+          <img width={70} src="src\images\tList.png" /> To Do List:{" "}
+        </div>
+        <div className="container task-add d-flex">
           <input
-            className="form-control border-1 rounded-start-pill"
+            className="form-control border-1 p-2 px-4 rounded-start-pill w-75"
             type="text"
             id="input"
             value={inputValue}
             placeholder="Enter your task... "
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <button className="btn btn-outline-secondary rounded-end-pill" onClick={handleAddTask}>
+          <button
+            className="btn btn-primary p-2 px-4 rounded-end-pill"
+            onClick={handleAddTask}
+          >
             Add
           </button>
         </div>
-        <ul className="tasks-container list-unstyled">
+
+        <ul className="list-unstyled m-3 d-grid row-gap-3">
           {tasks &&
             tasks
               .filter((task) => task && task.task)
               .map((task) => (
-                <li key={task.id} className="container m-3 col">
-                  {" "}
-                  <button
-                    className="btn btn-secondary rounded-pill"
+                <li key={task.id} className="container d-flex justify-content-left align-items-center gap-2">
+                  <span onClick={() => toggleDoneUndone(task.id)}>
+                    {task.done ? (
+                      <img width={45} src="src\images\checked.png" />
+                    ) : (
+                      <img width={45} src="src\images\unchecked.png" />
+                    )}
+                  </span>
+                  <i
+                    className=" rounded-pill bi bi-arrow-up-circle-fill"
                     onClick={() => handleMoveTaskUp(task.id)}
-                  >
-                    Up
-                  </button>{" "}
-                  <button
-                    className="btn btn-secondary rounded-pill"
+                  ></i>
+                  <i
+                    className=" rounded-pill bi bi-arrow-down-circle-fill"
                     onClick={() => handleMoveTaskDown(task.id)}
-                  >
-                    Down
-                  </button>{" "}
-                  <span className="container">{task.task} </span>
-                  <button
-                    className="btn btn-danger rounded-pill"
+                  ></i>{" "}
+                  <span className={`m-1 ${task.done ? "done" : ""}`}>
+                    {task.task}{" "}
+                  </span>
+                  <i
+                    className="trash bi bi-trash-fill text-danger"
                     onClick={() => handleDeleteTask(task.id)}
-                  >
-                    delete
-                  </button>
+                  ></i>
                 </li>
               ))}
         </ul>
