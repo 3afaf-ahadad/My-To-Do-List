@@ -11,7 +11,7 @@ body {
 .tasks-box {
   background: linear-gradient(120deg, #f5d3c4, #f2aebb);
   box-shadow: 0 0 10px;
-  max-width: 500px;
+  max-width: 550px;
   font-size: 1.1rem;
 }
 
