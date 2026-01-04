@@ -60,12 +60,13 @@ Building this project deepened my understanding of:
 
 ## 🔮 Future Enhancements
 
-- **Task Editing & Organization** – In-place editing, categories, and tagging for better workflow
-- **Smart Features** – Due dates, reminders, and automated trash cleanup
-- **User Experience** – Export/import functionality and user authentication
+- **Task Editing & Organization**: In-place editing, categories, and tagging for better workflow
+- **Smart Features** : Due dates, reminders, and automated trash cleanup
+- **User Experience** : Export/import functionality and user authentication
 
 ## 🛠️ Development Tools
 
-- **Prettier** – Code formatting and consistency
-- **React DevTools** – Component inspection and debugging  
-- **Git** – Version control and collaboration
+- **Prettier** : Code formatting and consistency
+- **React DevTools** : Component inspection and debugging  
+- **Git** : Version control
+
