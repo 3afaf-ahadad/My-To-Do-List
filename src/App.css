@@ -9,6 +9,7 @@ body {
 }
 
 .tasks-box {
+  width: 100%;
   max-width: 330px;
   box-sizing: border-box;
   font-size: 1.1rem;
@@ -64,3 +65,21 @@ i {
   font-size: 1.3rem;
   cursor: pointer;
 }
+
+
+/* mobile */
+@media (min-width: 510px) {
+  .tasks-box {
+    font-size: 1.2rem;
+    max-width: 470px;
+  }
+
+  .task-add input {
+    padding: 0.7rem;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+}
+
