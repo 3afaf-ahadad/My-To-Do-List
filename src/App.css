@@ -18,8 +18,11 @@ body {
   background: linear-gradient(120deg, #f5d3c4, #f2aebb);
 }
 
+.title img {
+width: 60px;
+}
 .title {
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: bold;
   color: #18193f;
 }
@@ -28,7 +31,7 @@ body {
   width: 100%;
   box-sizing: border-box;
   padding: 0.5rem;
-  font-size: 1rem;
+  font-size: .86rem;
   border-radius: 8px;
 }
 
@@ -40,6 +43,7 @@ body {
 .task-add button {
   background-color: #9fa8da;
   border: 1px solid #9fa8da;
+  font-size: .90rem;
 }
 .task-add button:hover {
   background-color: #9fa8da;
@@ -80,6 +84,9 @@ i {
 
   .title {
     font-size: 2.5rem;
+  }
+  .title img {
+    width: 70px;
   }
 }
 
