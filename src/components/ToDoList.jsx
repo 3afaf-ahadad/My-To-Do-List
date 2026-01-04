@@ -1,7 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useEffect, useState } from "react";
-import "../style.css";
 
 function ToDoList() {
   const [tasks, setTasks] = useState([]);
@@ -128,7 +127,7 @@ function ToDoList() {
   };
 
   return (
-    <div>
+    <>
       <div className="container tasks-box rounded-5 py-3 my-5 mx-auto">
         <div className="title p-4 rounded-top-5">
           {" "}
@@ -186,7 +185,7 @@ function ToDoList() {
               ))}
         </ul>
       </div>
-    </div>
+    </>
   );
 }
 export default ToDoList;

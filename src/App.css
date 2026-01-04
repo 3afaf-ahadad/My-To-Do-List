@@ -1,42 +1,66 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  font-family: "Outfit", sans-serif;
+  transition: 0.7s ease-in-out;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+body {
+  background: linear-gradient(130deg, #9fa8da, white);
+  min-height: 100svh;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.tasks-box {
+  max-width: 350px;
+  box-sizing: border-box;
+  font-size: 1.1rem;
+  padding: 1rem;
+  box-shadow: 0 0 10px;
+  background: linear-gradient(120deg, #f5d3c4, #f2aebb);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #18193f;
 }
 
-.card {
-  padding: 2em;
+.task-add input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
 }
 
-.read-the-docs {
-  color: #888;
+.task-add input:focus {
+  transition: 0.7s ease-in-out;
+  box-shadow: 0 0 16px hsl(231, 44%, 80%);
+  border: 2px solid #9fa8da;
+}
+.task-add button {
+  background-color: #9fa8da;
+  border: 1px solid #9fa8da;
+}
+.task-add button:hover {
+  background-color: #9fa8da;
+  box-shadow: 0 0 17px #c4cae8;
+  border: 1px solid #9fa8da;
+}
+.task-add button:active {
+  background-color: #9fa8da;
+  border: 1px solid #9fa8da;
+}
+
+.list-unstyled img {
+  cursor: pointer;
+}
+
+.done {
+  color: #a7aae1;
+  text-decoration: line-through;
+}
+
+i {
+  color: #18193f;
+  font-size: 1.3rem;
+  cursor: pointer;
 }
