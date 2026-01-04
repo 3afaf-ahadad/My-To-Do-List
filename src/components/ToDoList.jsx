@@ -132,7 +132,7 @@ function ToDoList() {
       <div className="container tasks-box rounded-5 py-3 my-5 mx-auto">
         <div className="title p-4 rounded-top-5">
           {" "}
-          <img width={70} src="\images\tList.png" /> To Do List:{" "}
+          <img width={70} src="/images/tlist.png" /> To Do List:{" "}
         </div>
         <div className="container task-add d-flex">
           <input
@@ -162,9 +162,9 @@ function ToDoList() {
                     
                     () => toggleDoneUndone(task.id)}>
                     {task.done ? (
-                      <img width={45} src="\images\checked.png" />
+                      <img width={45} src="/images/checked.png" />
                     ) : (
-                      <img width={45} src="\images\unchecked.png" />
+                      <img width={45} src="/images/unchecked.png" />
                     )}
                   </span>
                   <i
