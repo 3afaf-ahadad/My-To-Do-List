@@ -8,7 +8,7 @@ function ToDoList() {
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:8000/tasks")
+    fetch("https://695847526c3282d9f1d4b6fb.mockapi.io/api/tasks")
       .then((res) => {
         if (!res.ok) {
           throw Error("💀 Error Fetching Data!!");
@@ -36,7 +36,7 @@ function ToDoList() {
         done: false,
       };
 
-      fetch("http://localhost:8000/tasks", {
+      fetch("https://695847526c3282d9f1d4b6fb.mockapi.io/api/tasks", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -62,7 +62,7 @@ function ToDoList() {
   }
 
   function handleDeleteTask(id) {
-    fetch(`http://localhost:8000/tasks/${id}`, {
+    fetch(`https://695847526c3282d9f1d4b6fb.mockapi.io/api/tasks/${id}`, {
       method: "DELETE",
     })
       .then((res) => {
@@ -112,8 +112,8 @@ function ToDoList() {
 
     setTasks((prev) => prev.map((t) => (t.id === id ? updated : t)));
 
-    fetch(`http://localhost:8000/tasks/${id}`, {
-      method: "PATCH",
+    fetch(`https://695847526c3282d9f1d4b6fb.mockapi.io/api/tasks/${id}`, {
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ done: updated.done }),
     })
@@ -157,7 +157,10 @@ function ToDoList() {
               .filter((task) => task && task.task)
               .map((task) => (
                 <li key={task.id} className="container d-flex justify-content-left align-items-center gap-2">
-                  <span onClick={() => toggleDoneUndone(task.id)}>
+                  <span onClick={
+
+                    
+                    () => toggleDoneUndone(task.id)}>
                     {task.done ? (
                       <img width={45} src="src\images\checked.png" />
                     ) : (
